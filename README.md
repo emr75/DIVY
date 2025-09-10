@@ -2,8 +2,8 @@
 
 ## Members
 
+- Likhith Vardhan Goruputi
+- Vincent Hepola
+- Srikar Konakanchi
 - Elle Robertson
 - Gaurav Rane
-- Likhith Vardhan Goruputi
-- Srikar Konakanchi
-- Vincent Hepola
