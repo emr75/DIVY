@@ -1,4 +1,5 @@
 # NYU_SWE Group 5 - Fractional Ownership Marketplace
+
 ## Description
 
 The Fractional Ownership Marketplace enables groups of individuals to jointly invest in
@@ -11,10 +12,10 @@ provides liquidity, allowing users to resell their shares to others.
 
 ## Get Started
 
-1. If you have installed python but have not installed Django, run the following commands.
+1. If you have installed Python already, run the following commands to install all requrired packages and to verify that Django was installed correctly.
 
 ```powershell
-$ python -m pip install Django
+$ python -m pip install -r requirements.txt
 
 $ python -m django --version
 ```
@@ -27,7 +28,6 @@ $ python manage.py runserver
 ```
 
 3. The Django development server will start running at [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
-
 
 ### Members
 
