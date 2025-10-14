@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.hashers import check_password
 from rest_framework import status
 
 from .models import User
@@ -102,3 +102,19 @@ class UserTests(TestCase):
         # Verify user is actually deleted from the database
         with self.assertRaises(User.DoesNotExist):
             User.objects.get(id=user_id)
+
+    def test_user_not_found(self):
+        """Test invalid user"""
+        invalid_id = 9999
+
+        # Test GET user not found
+        response = self.client.get(self.get_url(invalid_id))
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        # Test UPDATE user not found
+        response = self.client.patch(self.update_url(invalid_id), {"username": "xyz"}, content_type="application/json")
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        # Test DELETE user not found
+        response = self.client.delete(self.delete_url(invalid_id), {'id':invalid_id})
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
