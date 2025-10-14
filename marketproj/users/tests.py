@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from rest_framework import status
 
 from .models import User
@@ -21,7 +21,7 @@ class UserTests(TestCase):
 
     def test_create_user(self):
         """Test creating a user"""
-        response = self.client.post(self.create_url, self.user_data, content_type='application/json')
+        response = self.client.post(self.create_url, self.user_data, format="json")
 
         # Verify response code
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -34,16 +34,16 @@ class UserTests(TestCase):
         user = User.objects.get(id=user_id)
         self.assertIsNotNone(user)
         self.assertEqual(user.username, self.user_data["username"])
-        self.assertEqual(user.emailid, self.user_data["emailid"])
-        self.assertEqual(user.phone_number, self.user_data["phone_number"])
-        self.assertEqual(user.password, make_password(self.user_data["password"]))  # Password should be hashed
+        self.assertEqual(user.email, self.user_data["email"])
+        self.assertEqual(user.phone, self.user_data["phone"])
+        self.assertTrue(check_password(self.user_data["password"], user.password))  # Password should be hashed and same
 
     def test_get_user(self):
         """Test retrieving a user"""
-        create_resp = self.client.post(self.create_url, self.user_data, content_type='application/json')
+        create_resp = self.client.post(self.create_url, self.user_data, format='json')
         user_id = create_resp.data.get("id")
 
-        response = self.client.get(self.get_url(user_id), content_type='application/json')
+        response = self.client.get(self.get_url(user_id))
 
         #Verify response code
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -63,24 +63,23 @@ class UserTests(TestCase):
 
     def test_update_user(self):
         """Test updating a user"""
-        create_resp = self.client.post(self.create_url, self.user_data, content_type='application/json')
+        create_resp = self.client.post(self.create_url, self.user_data, format="json")
         user_id = create_resp.data.get("id")
 
         updated_data = {
-            "id": user_id,
             "username": "updateduser",
             "email": "ijk@pqr.com",
             "phone": "0987654321",
         }
 
-        response = self.client.patch(self.update_url(user_id), updated_data, content_type='application/json')
+        response = self.client.patch(self.update_url(user_id), updated_data, content_type="application/json")
 
         #Verify response code
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # Verify returned object has an ID
         self.assertIsNotNone(response.data.get("id"))
-        self.assertEqual(response.data.get("id"), updated_data["id"])
+        self.assertEqual(response.data.get("id"), user_id)
 
         # Verify returned user data
         user = User.objects.get(id=user_id)
@@ -92,10 +91,10 @@ class UserTests(TestCase):
 
     def test_delete_user(self):
         """Test deleting a user"""
-        create_resp = self.client.post(self.create_url, self.user_data, content_type='application/json')
+        create_resp = self.client.post(self.create_url, self.user_data, format="json")
         user_id = create_resp.data.get("id")
 
-        response = self.client.delete(self.delete_url(user_id), content_type='application/json')
+        response = self.client.delete(self.delete_url(user_id), {'id':user_id})
 
         #Verify response code
         self.assertEqual(response.status_code, status.HTTP_200_OK)

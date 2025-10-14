@@ -11,16 +11,15 @@ def create_user(request):
     user = UserSerializer(data=request.data)
 
     #TODO: Add server-side validation, make sure its reflected on front-end
-    # if data.is_valid():
-    user.save()
-
+    if user.is_valid():
+        user.save()
     return Response(user.data, status=status.HTTP_201_CREATED)
 
 # READ user
 @api_view(['GET'])
-def get_user(request):
+def get_user(request,id):
     try:
-        user = User.objects.get(id=request.GET.get('id'))
+        user = User.objects.get(id=id)
     except User.DoesNotExist:
         # User not found
         return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
@@ -30,23 +29,28 @@ def get_user(request):
 
 # UPDATE user
 @api_view(['PATCH'])
-def update_user(request):
+def update_user(request, id):
     try:
-        user = User.objects.get(id=request.data.get('id'))
+        user = User.objects.get(id=id)
     except User.DoesNotExist:
         # User not found
         return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
     
     #TODO: Add server-side validation, make sure its reflected on front-end
-    # if data.is_valid():
-    user.save()
-    return Response(user.data, status=status.HTTP_200_OK)
+    # This logic needs to be looked into as well when implementing validations
+    serializer = UserSerializer(user, data=request.data, partial=True)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # DELETE user
 @api_view(['DELETE'])
-def delete_user(request):
+def delete_user(request, id):
     try:
-        user = User.objects.get(id=request.data.get('id'))
+        user = User.objects.get(id=id)
     except User.DoesNotExist:
         # User not found
         return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
