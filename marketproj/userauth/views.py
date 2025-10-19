@@ -29,4 +29,3 @@ def login(request):
     else:
         # Invalid password
         return Response({"error": "Invalid username or password"}, status=status.HTTP_401_UNAUTHORIZED)
-    
