@@ -4,6 +4,15 @@ from rest_framework.decorators import api_view
 from .utils import UserSerializer
 from .models import User
 
+
+# PING function to test connection
+@api_view(['GET'])
+def ping(request):
+    print("pong")
+    return Response({"message": "pong"}, status=status.HTTP_200_OK)
+
+
+
 # CREATE user
 @api_view(['POST'])
 def create_user(request):

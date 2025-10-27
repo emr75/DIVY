@@ -21,7 +21,7 @@ function App() {
         {/* Protected route */}
         <Route
           path="/LandingPage"
-          element={LoggedIn ? <LandingPage /> : <LoginForm/> }
+          element={LoggedIn ? <LandingPage /> : <LoginForm />}
         />
 
         {/* Catch-all */}
