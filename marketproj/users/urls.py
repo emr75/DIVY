@@ -3,10 +3,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    
-    # PING function to test connection
-    path("ping", views.ping, name="ping"),
-    
     path("create", views.create_user, name="create_user"),
     path("get/<int:id>", views.get_user, name="get_user"),
     path("update/<int:id>", views.update_user, name="update_user"),

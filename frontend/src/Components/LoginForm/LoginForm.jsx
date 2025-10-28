@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "./LoginForm.css";
 import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 // Stylesheet for icons
 <link
@@ -11,6 +12,9 @@ import { Link, useNavigate } from "react-router-dom";
 // Login Form Component
 const LoginForm = () => {
     const navigate = useNavigate();
+
+    const [responseMessage, setResponseMessage] = useState('');
+
 
     // Login useState
     const [form, setForm] = useState({
@@ -24,13 +28,29 @@ const LoginForm = () => {
     };
 
     // Form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Authetication will go here
         //
 
-        navigate("/landingpage"); // redirect to dashboard (temp landingPage) after login
+        try {
+            const response = await axios.get('http://localhost:8000/users/get', form);
+            setResponseMessage('Data submitted successfully!');
+            // console.log(response.data); // Log the response from Django
+
+            if (response.status === 200) {
+                alert("You exist!");
+            }
+
+
+        } catch (error) {
+            setResponseMessage('Error submitting data.');
+            console.log('Error:', error);
+            alert("No user fund");
+        }
+
+        // navigate("/landingpage"); // redirect to dashboard (temp landingPage) after login
     };
     return (
         <div className="page right wrapper">

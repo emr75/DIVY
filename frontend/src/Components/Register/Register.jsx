@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Register.css';
 import { Link, useNavigate } from 'react-router-dom';
 // import { registerUser } from "api";
+import axios from 'axios';
 
 // Stylesheet for icons
 <link
@@ -15,15 +16,19 @@ const Register = ({ setToken }) => {
     // For naviagtion
     const navigate = useNavigate();
 
+    const [responseMessage, setResponseMessage] = useState('');
+
     // Register useState
     const [form, setForm] = useState({
-        firstName: '',
-        lastName: '',
+        // firstName: '',
+        // lastName: '',
+        username: '',
         email: '',
+        phone: '',
         password: '',
         confirm: '',
-        idImg: null,
-        profilePic: null
+        // idImg: null,
+        // profilePic: null
     });
 
     // console.log(form)
@@ -48,6 +53,8 @@ const Register = ({ setToken }) => {
         //     form.profilePic
         // );
 
+
+
         // // Store token locally
         // localStorage.setItem("myToken", APIData.token);
 
@@ -55,16 +62,16 @@ const Register = ({ setToken }) => {
         // setToken(APIData.token);
 
         // Reset Form
-        setForm({
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            confirm: '',
-            idImg: null,
-            profilePic: null
-        });
-        navigate("/landingpage")
+        // setForm({
+        //     firstName: '',
+        //     lastName: '',
+        //     email: '',
+        //     password: '',
+        //     confirm: '',
+        //     idImg: null,
+        //     profilePic: null
+        // });
+        // navigate("/landingpage")
 
         // Password validation
         if (form.password !== form.confirm) {
@@ -74,8 +81,24 @@ const Register = ({ setToken }) => {
 
         // POST Request
 
+        try {
+            const response = await axios.post('http://localhost:8000/users/create', form);
+            setResponseMessage('Data submitted successfully!');
+            // console.log(response.data); // Log the response from Django
+
+            if (response.status === 201) {
+                alert("You are registered!");
+            }
+
+
+        } catch (error) {
+            setResponseMessage('Error submitting data.');
+            console.log('Error:', error);
+            alert("Cannot register. Either invalid information (username, email, and/or phone), or a user with same information could already exist");
+        }
+
         // on success navigate to dashboard (landing for now)
-        navigate('/landingpage');
+        // navigate('/landingpage');
     };
 
     return (
@@ -83,7 +106,7 @@ const Register = ({ setToken }) => {
             <form onSubmit={handleSubmit}>
                 {/* Sign Up Field */}
                 <h1>Register</h1>
-                <div className="r-input">
+                {/* <div className="r-input">
                     <input
                         name="firstName"
                         type="text"
@@ -102,6 +125,16 @@ const Register = ({ setToken }) => {
                         onChange={handleChange}
                         required
                     />
+                </div> */}
+                <div className="r-input">
+                    <input
+                        name="username"
+                        type="text"
+                        placeholder="Username"
+                        value={form.username}
+                        onChange={handleChange}
+                        required
+                    />
                 </div>
                 <div className="r-input">
                     <input
@@ -109,6 +142,16 @@ const Register = ({ setToken }) => {
                         type="email"
                         placeholder="Email"
                         value={form.email}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="r-input">
+                    <input
+                        name="phone"
+                        type="phone"
+                        placeholder="Phone"
+                        value={form.phone}
                         onChange={handleChange}
                         required
                     />
@@ -139,7 +182,7 @@ const Register = ({ setToken }) => {
                 </div>
 
                 {/* Upload ID  image - Required*/}
-                <div className="uploads">
+                {/* <div className="uploads">
                     <label htmlFor="idImg" id='uploadImg' >Upload ID*</label>
                     <input
                         id="idImg"
@@ -149,10 +192,10 @@ const Register = ({ setToken }) => {
                         onChange={handleChange}
                         required
                     />
-                </div>
+                </div> */}
 
                 {/* Profile Picture – Optional */}
-                <div className="uploads">
+                {/* <div className="uploads">
                     <label htmlFor="profile-pic">Profile Picture (Optional)</label>
                     <input
                         id="profile-pic"
@@ -161,7 +204,7 @@ const Register = ({ setToken }) => {
                         accept=".jpg,.jpeg,.svg,.png,.pdf"
                         onChange={handleChange}
                     />
-                </div>
+                </div> */}
 
                 {/* Submit  */}
                 <button type="submit">Create Account</button>

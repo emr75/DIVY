@@ -5,14 +5,6 @@ from .utils import UserSerializer
 from .models import User
 
 
-# PING function to test connection
-@api_view(['GET'])
-def ping(request):
-    print("pong")
-    return Response({"message": "pong"}, status=status.HTTP_200_OK)
-
-
-
 # CREATE user
 @api_view(['POST'])
 def create_user(request):
@@ -21,7 +13,10 @@ def create_user(request):
     #TODO: Add server-side validation, make sure its reflected on front-end
     if user.is_valid():
         user.save()
-    return Response(user.data, status=status.HTTP_201_CREATED)
+        return Response(user.data, status=status.HTTP_201_CREATED)
+    else:
+        print('invalid user')
+        return Response(user.data, status=status.HTTP_304_NOT_MODIFIED)
 
 # READ user
 @api_view(['GET'])
