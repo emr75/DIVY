@@ -23,8 +23,9 @@ def jwt_required(func):
         return func(request, *args, **kwargs)
     return wrapper
 
-def get_user_from_jwt(token: str):
+def get_user_from_jwt(request):
     try:
+        token = request.headers.get('Authorization').split(' ')[1]
         payload = jwt.decode(token, settings.JWT_SECRET, algorithms=[settings.JWT_ALGORITHM])
         user_id = payload.get('user_id')
         return User.objects.get(id=user_id)
