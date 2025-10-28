@@ -33,9 +33,17 @@ def jwt_required(func):
         return func(request, *args, **kwargs)
     return wrapper
 
-def get_user_from_jwt(request):
+def get_user_from_request(request):
     try:
         token = request.headers.get('Authorization').split(' ')[1]
+        payload = jwt.decode(token, settings.JWT_SECRET, algorithms=[settings.JWT_ALGORITHM])
+        user_id = payload.get('user_id')
+        return User.objects.get(id=user_id)
+    except (jwt.ExpiredSignatureError, jwt.InvalidTokenError, User.DoesNotExist):
+        return None
+    
+def get_user_from_jwt(token):
+    try:
         payload = jwt.decode(token, settings.JWT_SECRET, algorithms=[settings.JWT_ALGORITHM])
         user_id = payload.get('user_id')
         return User.objects.get(id=user_id)

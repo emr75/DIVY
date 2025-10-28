@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from userauth.jwtutils import jwt_required, get_user_from_jwt
+from userauth.jwtutils import jwt_required, get_user_from_request
 
 from .utils import UserSerializer
 from .models import User
@@ -37,7 +37,7 @@ def get_user(request,id):
 @api_view(['PATCH'])
 @jwt_required
 def update_user(request, id):
-    userFromToken = get_user_from_jwt(request)
+    userFromToken = get_user_from_request(request)
     if userFromToken.id != id:
         return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
     
@@ -61,7 +61,7 @@ def update_user(request, id):
 @api_view(['DELETE'])
 @jwt_required
 def delete_user(request, id):
-    userFromToken = get_user_from_jwt(request)
+    userFromToken = get_user_from_request(request)
     if userFromToken.id != id:
         return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
     
