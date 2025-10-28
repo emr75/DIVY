@@ -27,6 +27,7 @@ def login(request):
         # Successful login
         payload = {
             'user_id': user.id,
+            'username': user.username,
             'exp': datetime.utcnow() + timedelta(seconds=settings.JWT_EXP_DELTA_SECONDS)
         }
         token = jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
