@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "./LoginForm.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import Cookies from "js-cookie";
 
 // Stylesheet for icons
 <link
@@ -40,7 +41,13 @@ const LoginForm = () => {
             // console.log(response.data); // Log the response from Django
 
             if (response.status === 200) {
+                Cookies.set('jwt_token', token, {
+                    expires: 1, // days until it expires
+                    secure: true, // only sent over HTTPS
+                    sameSite: 'strict' // prevents CSRF
+                });
                 console.log(response.data['message']);
+                
                 alert(`${response.data['message']}, you exist!`);
             }
 
