@@ -41,7 +41,7 @@ const LoginForm = () => {
             // console.log(response.data); // Log the response from Django
 
             if (response.status === 200) {
-                Cookies.set('jwt_token', token, {
+                Cookies.set('jwt_token', response.data['token'], {
                     expires: 1, // days until it expires
                     secure: true, // only sent over HTTPS
                     sameSite: 'strict' // prevents CSRF
