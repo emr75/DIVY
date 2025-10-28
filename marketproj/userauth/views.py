@@ -1,9 +1,14 @@
+import jwt
+
+from datetime import datetime, timedelta
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from django.contrib.auth.hashers import check_password
 
-from users.utils import UserSerializer
+from django.contrib.auth.hashers import check_password
+from django.conf import settings
+
 from users.models import User
 
 # LOGIN user
@@ -20,11 +25,15 @@ def login(request):
 
     if check_password(password, user.password):
         # Successful login
-        serializer = UserSerializer(user)
-        #TODO: Implement JWT
+        payload = {
+            'user_id': user.id,
+            'exp': datetime.utcnow() + timedelta(seconds=settings.JWT_EXP_DELTA_SECONDS)
+        }
+        token = jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
+
         return Response({
             "message": "Login successful",
-            "user": serializer.data
+            "token": token,
         }, status=status.HTTP_200_OK)
     else:
         # Invalid password
