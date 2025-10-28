@@ -35,12 +35,13 @@ const LoginForm = () => {
         //
 
         try {
-            const response = await axios.get('http://localhost:8000/users/get', form);
+            const response = await axios.post('http://localhost:8000/auth/login', form);
             setResponseMessage('Data submitted successfully!');
             // console.log(response.data); // Log the response from Django
 
             if (response.status === 200) {
-                alert("You exist!");
+                console.log(response.data['message']);
+                alert(`${response.data['message']}, you exist!`);
             }
 
 

@@ -4,25 +4,28 @@ import Register from './Components/Register/Register';
 import LandingPage from './Pages/LandingPage';
 
 function App() {
-  const LoggedIn = false; // Example auth state
+  // const LoggedIn = false; // Example auth state
 
   return (
     <Router>
       <Routes>
         {/* Default route - homepage if logged in */}
-        <Route
+        {/* <Route
           path="/"
           element={!LoggedIn ? <LandingPage /> : <LoginForm />}
-        />
+        /> */}
+        <Route path="/" element={<LandingPage />} />
 
         {/* Register */}
         <Route path="/register" element={<Register />} />
 
+        <Route path="/login" element={<LoginForm />} />
+
         {/* Protected route */}
-        <Route
+        {/* <Route
           path="/LandingPage"
           element={LoggedIn ? <LandingPage /> : <LoginForm />}
-        />
+        /> */}
 
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />
