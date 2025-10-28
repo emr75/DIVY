@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from .jwtutils import get_user_from_jwt
+
 # Create your tests here.
 class AuthTests(TestCase):
     def setUp(self):
@@ -29,7 +31,14 @@ class AuthTests(TestCase):
         # Verify response code
         self.assertEqual(login_response.status_code, 200)
 
-        #TODO Verify JWT token
+        # Verify JWT token
+        token = login_response.data.get("token")
+        self.assertIsNotNone(token)
+
+        user_from_token = get_user_from_jwt(token)
+        self.assertIsNotNone(user_from_token)
+        self.assertEqual(user_from_token.username, self.user_data["username"])
+
 
     def test_invalid_login(self):
         """Test invalid login"""
