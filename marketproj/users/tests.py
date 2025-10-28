@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.contrib.auth.hashers import check_password
 from rest_framework import status
 
+from userauth.jwtutils import generate_jwt
+
 from .models import User
 
 #Generic CRUD tests for user
@@ -72,6 +74,10 @@ class UserTests(TestCase):
             "phone": "0987654321",
         }
 
+        user = User.objects.get(id=user_id)
+        token = generate_jwt(user)
+
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
         response = self.client.patch(self.update_url(user_id), updated_data, content_type="application/json")
 
         #Verify response code
@@ -94,6 +100,10 @@ class UserTests(TestCase):
         create_resp = self.client.post(self.create_url, self.user_data, format="json")
         user_id = create_resp.data.get("id")
 
+        user = User.objects.get(id=user_id)
+        token = generate_jwt(user)
+
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
         response = self.client.delete(self.delete_url(user_id), {'id':user_id})
 
         #Verify response code

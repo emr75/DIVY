@@ -1,10 +1,20 @@
 import jwt
 
+from datetime import datetime, timedelta
 from rest_framework.response import Response
 from functools import wraps
 
 from django.conf import settings
 from users.models import User
+
+def generate_jwt(user):
+    payload = {
+        'user_id': user.id,
+        'username': user.username,
+        'exp': datetime.utcnow() + timedelta(seconds=settings.JWT_EXP_DELTA_SECONDS)
+    }
+    token = jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
+    return token
 
 def jwt_required(func):
     @wraps(func)
