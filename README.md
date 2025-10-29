@@ -12,22 +12,40 @@ provides liquidity, allowing users to resell their shares to others.
 
 ## Get Started
 
-1. If you have installed Python already, run the following commands to install all requrired packages and to verify that Django was installed correctly.
+1. If you have installed Python already, run the following commands from the root project directory to install all required packages and to verify that Django was installed correctly.
 
 ```powershell
 $ python -m pip install -r requirements.txt
 
 $ python -m django --version
 ```
-
 2. Once Django is installed, start the development server using these commands.
 
 ```powershell
 $ cd marketproj
+
+$ python manage.py migrate
+
 $ python manage.py runserver
 ```
 
 3. The Django development server will start running at [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
+
+4. If you have installed Node.js, run the following commands from the root project directory to install all required packages for the frontend React.js server.
+
+```powershell
+$ cd frontend
+
+$ npm install
+```
+
+5. Once JavaScript package installation is complete, start the frontend server using this command
+```powershell
+$ npm run start
+```
+
+6. The React development server will start running at [http://localhost:3000](http://localhost:3000).
+
 
 ### Members
 
