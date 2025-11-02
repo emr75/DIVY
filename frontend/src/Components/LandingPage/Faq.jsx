@@ -15,8 +15,8 @@ export const Faq = () => {
         <li>Feature 5</li>
         <li>Feature 6</li>
       </ul>
- </div>
-  )
+    </div>
+  );
 };
 
 export default Faq;
