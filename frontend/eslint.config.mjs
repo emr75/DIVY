@@ -13,14 +13,23 @@ export default defineConfig([
       ecmaVersion: "latest",
       sourceType: "module",
       globals: { ...globals.browser, ...globals.node },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true, // ✅ enable JSX parsing
+        },
+      },
     },
     plugins: { react, prettier },
-    settings: { react: { version: "detect" } },
+    settings: {
+      react: {
+        version: "detect", // ✅ auto-detect React version
+      },
+    },
     rules: {
       ...react.configs.recommended.rules,
-      "react/display-name": "off",      // Disable rule that breaks with ESLint 9
-      "prettier/prettier": "error",     // Enforce Prettier format
+      "react/display-name": "off", // still disable this (ESLint 9 conflict)
+      "prettier/prettier": "error",
     },
   },
-  eslintConfigPrettier, // Turns off ESLint rules that conflict with Prettier
+  eslintConfigPrettier,
 ]);
