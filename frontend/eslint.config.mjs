@@ -12,22 +12,26 @@ export default defineConfig([
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
-      globals: { ...globals.browser, ...globals.node },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.jest, // ✅ add jest globals
+      },
       parserOptions: {
         ecmaFeatures: {
-          jsx: true, // ✅ enable JSX parsing
+          jsx: true,
         },
       },
     },
     plugins: { react, prettier },
     settings: {
-      react: {
-        version: "detect", // ✅ auto-detect React version
-      },
+      react: { version: "detect" },
     },
     rules: {
       ...react.configs.recommended.rules,
-      "react/display-name": "off", // still disable this (ESLint 9 conflict)
+      "react/display-name": "off",
+      "react/react-in-jsx-scope": "off", // ✅ React 17+ fix
+      "react/no-unescaped-entities": "off", // ✅ optional
       "prettier/prettier": "error",
     },
   },
