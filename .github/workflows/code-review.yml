@@ -47,6 +47,7 @@ jobs:
           npx prettier --check . || true
 
       # ---------- BACKEND ----------
+      #test
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
