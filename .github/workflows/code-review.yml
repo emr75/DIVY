@@ -45,16 +45,16 @@ jobs:
           python-version: "3.11"
 
       - name: Install backend dependencies
-        working-directory: ./backend
+        working-directory: ./marketproj
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt flake8 black
 
       # ✅ Lint Django backend (non-blocking)
       - name: Run Flake8 lint (lenient)
-        working-directory: ./backend
+        working-directory: ./marketproj
         run: flake8 . || true
 
       - name: Run Black formatting check (lenient)
-        working-directory: ./backend
+        working-directory: ./marketproj
         run: black --check . || true
