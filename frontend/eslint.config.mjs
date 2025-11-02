@@ -1,17 +1,26 @@
 import js from "@eslint/js";
 import globals from "globals";
-import pluginReact from "eslint-plugin-react";
-import json from "@eslint/json";
-import markdown from "@eslint/markdown";
-import css from "@eslint/css";
+import react from "eslint-plugin-react";
+import prettier from "eslint-plugin-prettier";
+import eslintConfigPrettier from "eslint-config-prettier";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs,jsx}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: {...globals.browser, ...globals.node} } },
-  pluginReact.configs.flat.recommended,
-  { files: ["**/*.json"], plugins: { json }, language: "json/json", extends: ["json/recommended"] },
-  { files: ["**/*.jsonc"], plugins: { json }, language: "json/jsonc", extends: ["json/recommended"] },
-  { files: ["**/*.json5"], plugins: { json }, language: "json/json5", extends: ["json/recommended"] },
-  { files: ["**/*.md"], plugins: { markdown }, language: "markdown/commonmark", extends: ["markdown/recommended"] },
-  { files: ["**/*.css"], plugins: { css }, language: "css/css", extends: ["css/recommended"] },
+  js.configs.recommended,
+  {
+    files: ["src/**/*.{js,jsx,ts,tsx}"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: { ...globals.browser, ...globals.node },
+    },
+    plugins: { react, prettier },
+    settings: { react: { version: "detect" } },
+    rules: {
+      ...react.configs.recommended.rules,
+      "react/display-name": "off",      // Disable rule that breaks with ESLint 9
+      "prettier/prettier": "error",     // Enforce Prettier format
+    },
+  },
+  eslintConfigPrettier, // Turns off ESLint rules that conflict with Prettier
 ]);
