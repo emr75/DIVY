@@ -4,14 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 // import { registerUser } from "api";
 import axios from 'axios';
 
-// Stylesheet for icons
-<link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-/>
-
 // Register Component
-const Register = ({ setToken }) => {
+const Register = () => {
 
     // For naviagtion
     const navigate = useNavigate();
@@ -52,7 +46,6 @@ const Register = ({ setToken }) => {
         //     form.idImg,
         //     form.profilePic
         // );
-
 
 
         // // Store token locally
@@ -130,6 +123,7 @@ const Register = ({ setToken }) => {
                     <input
                         name="username"
                         type="text"
+                        id="username"
                         placeholder="Username"
                         value={form.username}
                         onChange={handleChange}
@@ -140,6 +134,7 @@ const Register = ({ setToken }) => {
                     <input
                         name="email"
                         type="email"
+                        id="email"
                         placeholder="Email"
                         value={form.email}
                         onChange={handleChange}
@@ -150,6 +145,7 @@ const Register = ({ setToken }) => {
                     <input
                         name="phone"
                         type="phone"
+                        id="phone"
                         placeholder="Phone"
                         value={form.phone}
                         onChange={handleChange}
@@ -162,6 +158,7 @@ const Register = ({ setToken }) => {
                     <input
                         name="password"
                         type="password"
+                        id="password"
                         placeholder="Create Password"
                         value={form.password}
                         onChange={handleChange}
@@ -174,6 +171,7 @@ const Register = ({ setToken }) => {
                     <input
                         name="confirm"
                         type="password"
+                        id="confirm"
                         placeholder="Retype Password"
                         value={form.confirm}
                         onChange={handleChange}
