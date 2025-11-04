@@ -5,7 +5,7 @@ import LandingPage from './Pages/LandingPage';
 
 function App() {
   // const LoggedIn = false; // Example auth state
-  //test
+
   return (
     <Router>
       <Routes>
