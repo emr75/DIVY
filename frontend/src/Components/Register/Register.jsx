@@ -6,107 +6,104 @@ import axios from 'axios';
 
 // Stylesheet for icons
 <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-/>
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+/>;
 
 // Register Component
 const Register = ({ setToken }) => {
+  // For naviagtion
+  const navigate = useNavigate();
 
-    // For naviagtion
-    const navigate = useNavigate();
+  const [responseMessage, setResponseMessage] = useState('');
 
-    const [responseMessage, setResponseMessage] = useState('');
+  // Register useState
+  const [form, setForm] = useState({
+    // firstName: '',
+    // lastName: '',
+    username: '',
+    email: '',
+    phone: '',
+    password: '',
+    confirm: '',
+    // idImg: null,
+    // profilePic: null
+  });
 
-    // Register useState
-    const [form, setForm] = useState({
-        // firstName: '',
-        // lastName: '',
-        username: '',
-        email: '',
-        phone: '',
-        password: '',
-        confirm: '',
-        // idImg: null,
-        // profilePic: null
-    });
+  // console.log(form)
 
-    // console.log(form)
+  // Updating of form
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-    // Updating of form
-    const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    };
+  // Handles form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    // Handles form submission
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    // // Register user data
+    // const APIData = await registerUser(
+    //     form.firstName,
+    //     form.lastName,
+    //     form.email,
+    //     form.password,
+    //     form.confirm,
+    //     form.idImg,
+    //     form.profilePic
+    // );
 
-        // // Register user data
-        // const APIData = await registerUser(
-        //     form.firstName,
-        //     form.lastName,
-        //     form.email,
-        //     form.password,
-        //     form.confirm,
-        //     form.idImg,
-        //     form.profilePic
-        // );
+    // // Store token locally
+    // localStorage.setItem("myToken", APIData.token);
 
+    // // Send auth token
+    // setToken(APIData.token);
 
+    // Reset Form
+    // setForm({
+    //     firstName: '',
+    //     lastName: '',
+    //     email: '',
+    //     password: '',
+    //     confirm: '',
+    //     idImg: null,
+    //     profilePic: null
+    // });
+    // navigate("/landingpage")
 
-        // // Store token locally
-        // localStorage.setItem("myToken", APIData.token);
+    // Password validation
+    if (form.password !== form.confirm) {
+      alert('Passwords do not match.');
+      return;
+    }
 
-        // // Send auth token
-        // setToken(APIData.token);
+    // POST Request
 
-        // Reset Form
-        // setForm({
-        //     firstName: '',
-        //     lastName: '',
-        //     email: '',
-        //     password: '',
-        //     confirm: '',
-        //     idImg: null,
-        //     profilePic: null
-        // });
-        // navigate("/landingpage")
+    try {
+      const response = await axios.post('http://localhost:8000/users/create', form);
+      setResponseMessage('Data submitted successfully!');
+      // console.log(response.data); // Log the response from Django
 
-        // Password validation
-        if (form.password !== form.confirm) {
-            alert('Passwords do not match.');
-            return;
-        }
+      if (response.status === 201) {
+        alert('You are registered!');
+      }
+    } catch (error) {
+      setResponseMessage('Error submitting data.');
+      console.log('Error:', error);
+      alert(
+        'Cannot register. Either invalid information (username, email, and/or phone), or a user with same information could already exist'
+      );
+    }
 
-        // POST Request
+    // on success navigate to dashboard (landing for now)
+    // navigate('/landingpage');
+  };
 
-        try {
-            const response = await axios.post('http://localhost:8000/users/create', form);
-            setResponseMessage('Data submitted successfully!');
-            // console.log(response.data); // Log the response from Django
-
-            if (response.status === 201) {
-                alert("You are registered!");
-            }
-
-
-        } catch (error) {
-            setResponseMessage('Error submitting data.');
-            console.log('Error:', error);
-            alert("Cannot register. Either invalid information (username, email, and/or phone), or a user with same information could already exist");
-        }
-
-        // on success navigate to dashboard (landing for now)
-        // navigate('/landingpage');
-    };
-
-    return (
-        <div className="pgr rwrapper">
-            <form onSubmit={handleSubmit}>
-                {/* Sign Up Field */}
-                <h1>Register</h1>
-                {/* <div className="r-input">
+  return (
+    <div className="pgr rwrapper">
+      <form onSubmit={handleSubmit}>
+        {/* Sign Up Field */}
+        <h1>Register</h1>
+        {/* <div className="r-input">
                     <input
                         name="firstName"
                         type="text"
@@ -126,63 +123,63 @@ const Register = ({ setToken }) => {
                         required
                     />
                 </div> */}
-                <div className="r-input">
-                    <input
-                        name="username"
-                        type="text"
-                        placeholder="Username"
-                        value={form.username}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="r-input">
-                    <input
-                        name="email"
-                        type="email"
-                        placeholder="Email"
-                        value={form.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="r-input">
-                    <input
-                        name="phone"
-                        type="phone"
-                        placeholder="Phone"
-                        value={form.phone}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+        <div className="r-input">
+          <input
+            name="username"
+            type="text"
+            placeholder="Username"
+            value={form.username}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="r-input">
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="r-input">
+          <input
+            name="phone"
+            type="phone"
+            placeholder="Phone"
+            value={form.phone}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-                {/* Create Password */}
-                <div className="r-input">
-                    <input
-                        name="password"
-                        type="password"
-                        placeholder="Create Password"
-                        value={form.password}
-                        onChange={handleChange}
-                        required
-                    />
-                    <i className="bi bi-lock-fill"></i>
-                </div>
-                {/* Retype */}
-                <div className="r-input">
-                    <input
-                        name="confirm"
-                        type="password"
-                        placeholder="Retype Password"
-                        value={form.confirm}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+        {/* Create Password */}
+        <div className="r-input">
+          <input
+            name="password"
+            type="password"
+            placeholder="Create Password"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
+          <i className="bi bi-lock-fill"></i>
+        </div>
+        {/* Retype */}
+        <div className="r-input">
+          <input
+            name="confirm"
+            type="password"
+            placeholder="Retype Password"
+            value={form.confirm}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-                {/* Upload ID  image - Required*/}
-                {/* <div className="uploads">
+        {/* Upload ID  image - Required*/}
+        {/* <div className="uploads">
                     <label htmlFor="idImg" id='uploadImg' >Upload ID*</label>
                     <input
                         id="idImg"
@@ -194,8 +191,8 @@ const Register = ({ setToken }) => {
                     />
                 </div> */}
 
-                {/* Profile Picture – Optional */}
-                {/* <div className="uploads">
+        {/* Profile Picture – Optional */}
+        {/* <div className="uploads">
                     <label htmlFor="profile-pic">Profile Picture (Optional)</label>
                     <input
                         id="profile-pic"
@@ -206,16 +203,16 @@ const Register = ({ setToken }) => {
                     />
                 </div> */}
 
-                {/* Submit  */}
-                <button type="submit">Create Account</button>
+        {/* Submit  */}
+        <button type="submit">Create Account</button>
 
-                {/* Register Link */}
-                <div className="register-link">
-                    <Link to="/loginform">Already have an account?</Link>
-                </div>
-            </form>
+        {/* Register Link */}
+        <div className="register-link">
+          <Link to="/loginform">Already have an account?</Link>
         </div>
-    );
+      </form>
+    </div>
+  );
 };
 
 export default Register;

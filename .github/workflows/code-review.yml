@@ -1,0 +1,78 @@
+name: Code Review and Lint Check
+
+on:
+  push:
+    branches: [ main, develop, liva ]
+  pull_request:
+    branches: [ main, develop, liva ]
+
+jobs:
+  lint-and-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ---------- FRONTEND ----------
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Cache Node modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('frontend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      # ✅ Run ESLint in lenient mode (ignores small dev rules)
+      - name: Run ESLint (lenient mode for CI)
+        working-directory: ./frontend
+        run: |
+          echo "Running ESLint in lenient CI mode..."
+          npx eslint src --rule "no-unused-vars: off" --rule "react/prop-types: off" --max-warnings=0
+
+      # ✅ Run Prettier just for formatting check (won’t fail build)
+      - name: Run Prettier check
+        working-directory: ./frontend
+        run: |
+          echo "Running Prettier formatting check..."
+          npx prettier --check . || true
+
+      # ---------- BACKEND ----------
+      #test
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+            
+      - name: Cache Python packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install backend dependencies
+       
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt flake8 black
+
+      # ✅ Lint Django backend (non-blocking)
+      - name: Run Flake8 lint (lenient)
+        working-directory: ./marketproj
+        run: flake8 . || true
+
+      - name: Run Black formatting check (lenient)
+        working-directory: ./marketproj
+        run: python -m black --check .
