@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import './Register.css';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import "./Register.css";
+import { Link, useNavigate } from "react-router-dom";
 // import { registerUser } from "api";
-import axios from 'axios';
+import axios from "axios";
 
 // Stylesheet for icons
 <link
@@ -15,17 +15,17 @@ const Register = ({ setToken }) => {
   // For naviagtion
   const navigate = useNavigate();
 
-  const [responseMessage, setResponseMessage] = useState('');
+  const [responseMessage, setResponseMessage] = useState("");
 
   // Register useState
   const [form, setForm] = useState({
     // firstName: '',
     // lastName: '',
-    username: '',
-    email: '',
-    phone: '',
-    password: '',
-    confirm: '',
+    username: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirm: "",
     // idImg: null,
     // profilePic: null
   });
@@ -72,25 +72,25 @@ const Register = ({ setToken }) => {
 
     // Password validation
     if (form.password !== form.confirm) {
-      alert('Passwords do not match.');
+      alert("Passwords do not match.");
       return;
     }
 
     // POST Request
 
     try {
-      const response = await axios.post('http://localhost:8000/users/create', form);
-      setResponseMessage('Data submitted successfully!');
+      const response = await axios.post("http://localhost:8000/users/create", form);
+      setResponseMessage("Data submitted successfully!");
       // console.log(response.data); // Log the response from Django
 
       if (response.status === 201) {
-        alert('You are registered!');
+        alert("You are registered!");
       }
     } catch (error) {
-      setResponseMessage('Error submitting data.');
-      console.log('Error:', error);
+      setResponseMessage("Error submitting data.");
+      console.log("Error:", error);
       alert(
-        'Cannot register. Either invalid information (username, email, and/or phone), or a user with same information could already exist'
+        "Cannot register. Either invalid information (username, email, and/or phone), or a user with same information could already exist"
       );
     }
 

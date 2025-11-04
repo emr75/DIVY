@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import './LoginForm.css';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import React, { useState } from "react";
+import "./LoginForm.css";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 // Stylesheet for icons
 <link
@@ -14,12 +14,12 @@ import Cookies from 'js-cookie';
 const LoginForm = () => {
   const navigate = useNavigate();
 
-  const [responseMessage, setResponseMessage] = useState('');
+  const [responseMessage, setResponseMessage] = useState("");
 
   // Login useState
   const [form, setForm] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
 
   // Updating of form
@@ -35,24 +35,24 @@ const LoginForm = () => {
     //
 
     try {
-      const response = await axios.post('http://localhost:8000/auth/login', form);
-      setResponseMessage('Data submitted successfully!');
+      const response = await axios.post("http://localhost:8000/auth/login", form);
+      setResponseMessage("Data submitted successfully!");
       // console.log(response.data); // Log the response from Django
 
       if (response.status === 200) {
-        Cookies.set('jwt_token', response.data['token'], {
+        Cookies.set("jwt_token", response.data["token"], {
           expires: 1, // days until it expires
           secure: true, // only sent over HTTPS
-          sameSite: 'strict', // prevents CSRF
+          sameSite: "strict", // prevents CSRF
         });
-        console.log(response.data['message']);
+        console.log(response.data["message"]);
 
-        alert(`${response.data['message']}, you exist!`);
+        alert(`${response.data["message"]}, you exist!`);
       }
     } catch (error) {
-      setResponseMessage('Error submitting data.');
-      console.log('Error:', error);
-      alert('No user fund');
+      setResponseMessage("Error submitting data.");
+      console.log("Error:", error);
+      alert("No user fund");
     }
 
     // navigate("/landingpage"); // redirect to dashboard (temp landingPage) after login
