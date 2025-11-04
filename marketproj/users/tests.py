@@ -8,19 +8,20 @@ from userauth.jwtutils import generate_jwt
 
 from .models import User
 
-#Generic CRUD tests for user
+
+# Generic CRUD tests for user
 class UserTests(APITestCase):
     def setUp(self):
         self.client = APIClient()
-        self.create_url = reverse('create_user')
-        self.get_url = lambda id: reverse('get_user', args=[id])
-        self.update_url = lambda id: reverse('update_user', args=[id])
-        self.delete_url = lambda id: reverse('delete_user', args=[id])
+        self.create_url = reverse("create_user")
+        self.get_url = lambda id: reverse("get_user", args=[id])
+        self.update_url = lambda id: reverse("update_user", args=[id])
+        self.delete_url = lambda id: reverse("delete_user", args=[id])
         self.user_data = {
             "username": "testuser",
             "password": "password123",
             "email": "abc@xyz.com",
-            "phone": "1234567890"
+            "phone": "1234567890",
         }
 
     def test_create_user(self):
@@ -40,16 +41,18 @@ class UserTests(APITestCase):
         self.assertEqual(user.username, self.user_data["username"])
         self.assertEqual(user.email, self.user_data["email"])
         self.assertEqual(user.phone, self.user_data["phone"])
-        self.assertTrue(check_password(self.user_data["password"], user.password))  # Password should be hashed and same
+        self.assertTrue(
+            check_password(self.user_data["password"], user.password)
+        )  # Password should be hashed and same
 
     def test_get_user(self):
         """Test retrieving a user"""
-        create_resp = self.client.post(self.create_url, self.user_data, format='json')
+        create_resp = self.client.post(self.create_url, self.user_data, format="json")
         user_id = create_resp.data.get("id")
 
         response = self.client.get(self.get_url(user_id))
 
-        #Verify response code
+        # Verify response code
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # Verify returned object has an ID
@@ -79,10 +82,12 @@ class UserTests(APITestCase):
         user = User.objects.get(id=user_id)
         token = generate_jwt(user)
 
-        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
-        response = self.client.patch(self.update_url(user_id), updated_data, content_type="application/json")
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+        response = self.client.patch(
+            self.update_url(user_id), updated_data, content_type="application/json"
+        )
 
-        #Verify response code
+        # Verify response code
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # Verify returned object has an ID
@@ -105,10 +110,10 @@ class UserTests(APITestCase):
         user = User.objects.get(id=user_id)
         token = generate_jwt(user)
 
-        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
-        response = self.client.delete(self.delete_url(user_id), {'id':user_id})
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+        response = self.client.delete(self.delete_url(user_id), {"id": user_id})
 
-        #Verify response code
+        # Verify response code
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # Verify user is actually deleted from the database
@@ -124,9 +129,17 @@ class UserTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
         # Test UPDATE user not found
-        response = self.client.patch(self.update_url(invalid_id), {"username": "xyz"}, content_type="application/json")
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)  # Unauthorized due to missing JWT
+        response = self.client.patch(
+            self.update_url(invalid_id),
+            {"username": "xyz"},
+            content_type="application/json",
+        )
+        self.assertEqual(
+            response.status_code, status.HTTP_401_UNAUTHORIZED
+        )  # Unauthorized due to missing JWT
 
         # Test DELETE user not found
-        response = self.client.delete(self.delete_url(invalid_id), {'id':invalid_id})
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)  # Unauthorized due to missing JWT
+        response = self.client.delete(self.delete_url(invalid_id), {"id": invalid_id})
+        self.assertEqual(
+            response.status_code, status.HTTP_401_UNAUTHORIZED
+        )  # Unauthorized due to missing JWT

@@ -75,4 +75,4 @@ jobs:
 
       - name: Run Black formatting check (lenient)
         working-directory: ./marketproj
-        run: black --check . || true
+        run: python -m black --check .
