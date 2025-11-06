@@ -21,7 +21,7 @@
 }
 
 .hero-wrapper::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -186,7 +186,7 @@
 
 /* Featured List Section */
 .featured-wrapper {
-  background: linear-gradient(135deg, rgb(117, 152, 180) 0%, rgb(43, 120, 162) 100%)
+  background: linear-gradient(135deg, rgb(117, 152, 180) 0%, rgb(43, 120, 162) 100%);
 }
 .featured-single-container {
   max-width: 900px;
@@ -402,7 +402,6 @@
   font-size: 13px;
   color: #666;
 }
-
 
 /* FAQ Section */
 .faq-wrapper {

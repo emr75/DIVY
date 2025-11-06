@@ -32,6 +32,7 @@ export default [
       "react/no-unescaped-entities": "off", // ✅ optional
       "prettier/prettier": ["error", { endOfLine: "auto" }],
       "linebreak-style": "off", // avoid double enforcement
+      "no-unused-vars": ["warn", { args: "after-used", ignoreRestSiblings: true }],
     },
   },
 ];
