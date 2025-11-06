@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import './Register.css';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import "./Register.css";
+import { Link, useNavigate } from "react-router-dom";
 // import { registerUser } from "api";
-import axios from 'axios';
+import axios from "axios";
 
 // Register Component
 const Register = () => {

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import '../../Pages/LandingPage.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import "../../Pages/LandingPage.css";
 
 export const HeroSection = () => {
     return (
