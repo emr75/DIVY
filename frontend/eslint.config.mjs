@@ -30,7 +30,7 @@ export default [
       "react/display-name": "off",
       "react/react-in-jsx-scope": "off", // ✅ React 17+ fix
       "react/no-unescaped-entities": "off", // ✅ optional
-      "prettier/prettier": ["error", { endOfLine: "lf" }],
+      "prettier/prettier": ["error", { endOfLine: "auto" }],
       "linebreak-style": "off", // avoid double enforcement
     },
   },
