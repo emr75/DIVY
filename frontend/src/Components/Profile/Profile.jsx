@@ -1,23 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import { Link, useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
+import axios from 'axios';
 
 
 // Reminder to adjust mock user data for API calls
 export const Profile = () => {
     const [activeTab, setActiveTab] = useState('overview');
 
-    // Mock user data
-    const userData = {
-        name: "Satay Nadella",
-        email: "satay.nadella@email.com",
-        username: "SNadella",
-        joinDate: "January 2024",
-        totalInvested: "$12,450",
-        portfolioValue: "$13,890",
-        totalReturn: "+11.6%",
-        activeInvestments: 8
-    };
+    const [userData, setUserData] = useState(
+        {
+            name: "Satay Nadella",
+            email: "satay.nadella@email.com",
+            username: "SNadella",
+            joinDate: "January 2024",
+            totalInvested: "$12,450",
+            portfolioValue: "$13,890",
+            totalReturn: "+11.6%",
+            activeInvestments: 8
+        }
+    )
+
+    // // Mock user data
+    // const userData = {
+    //     name: "Satay Nadella",
+    //     email: "satay.nadella@email.com",
+    //     username: "SNadella",
+    //     joinDate: "January 2024",
+    //     totalInvested: "$12,450",
+    //     portfolioValue: "$13,890",
+    //     totalReturn: "+11.6%",
+    //     activeInvestments: 8
+    // };
 
     const investments = [
         {
@@ -76,10 +91,62 @@ export const Profile = () => {
         }
     ];
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        console.log("profile useEffect")
+
+        let jwt_token = Cookies.get('jwt_token')
+
+        if (jwt_token) {
+
+            (async () => {
+                console.log("Token exists")
+                const response = await axios.post('http://localhost:8000/auth/user_info', { "jwt_token": jwt_token });
+
+                if (response.status === 200) {
+
+                    const data = response.data
+
+                    const dateObject = new Date(data["created_at"])
+
+                    // Format as "Month Day, Year" (e.g., "November 5, 2025")
+                    const formattedDate = dateObject.toLocaleDateString('en-US', {
+                        month: 'long',
+                        // day: 'numeric',
+                        year: 'numeric',
+                    });
+
+                    console.log(formattedDate)
+
+                    // console.log(response)
+
+                    setUserData(userData => (
+                        {
+                            ...userData,
+                            username: data["username"],
+                            email: data["email"],
+                            joinDate: formattedDate
+                        }
+                    ))
+
+                    // console.log(response);
+                }
+
+                setIsLoggedIn(true)
+            }
+            )()
+        }
+        else {
+            setIsLoggedIn(false)
+        }
+    }, [isLoggedIn])
+
+
     return (
         <div className="profile-layout">
             <div className='profile-container'>
-            {/* Sidebar */}
+                {/* Sidebar */}
                 <div className="profile-sidebar">
                     {/* User Profile Section */}
                     <div className="sidebar-header">
