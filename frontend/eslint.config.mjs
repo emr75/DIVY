@@ -2,10 +2,8 @@ import js from "@eslint/js";
 import globals from "globals";
 import react from "eslint-plugin-react";
 import prettier from "eslint-plugin-prettier";
-import eslintConfigPrettier from "eslint-config-prettier";
-import { defineConfig } from "eslint/config";
 
-export default defineConfig([
+export default [
   js.configs.recommended,
   {
     files: ["src/**/*.{js,jsx,ts,tsx}"],
@@ -32,8 +30,8 @@ export default defineConfig([
       "react/display-name": "off",
       "react/react-in-jsx-scope": "off", // ✅ React 17+ fix
       "react/no-unescaped-entities": "off", // ✅ optional
-      "prettier/prettier": "error",
+      "prettier/prettier": ["error", { endOfLine: "lf" }],
+      "linebreak-style": "off", // avoid double enforcement
     },
   },
-  eslintConfigPrettier,
-]);
+];
