@@ -7,9 +7,6 @@ import axios from "axios";
 // Register Component
 const Register = () => {
 
-    // For naviagtion
-    const navigate = useNavigate();
-
     const [responseMessage, setResponseMessage] = useState('');
 
     // Register useState
@@ -35,36 +32,6 @@ const Register = () => {
     // Handles form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // // Register user data
-        // const APIData = await registerUser(
-        //     form.firstName,
-        //     form.lastName,
-        //     form.email,
-        //     form.password,
-        //     form.confirm,
-        //     form.idImg,
-        //     form.profilePic
-        // );
-
-
-        // // Store token locally
-        // localStorage.setItem("myToken", APIData.token);
-
-        // // Send auth token
-        // setToken(APIData.token);
-
-        // Reset Form
-        // setForm({
-        //     firstName: '',
-        //     lastName: '',
-        //     email: '',
-        //     password: '',
-        //     confirm: '',
-        //     idImg: null,
-        //     profilePic: null
-        // });
-        // navigate("/landingpage")
 
         // Password validation
         if (form.password !== form.confirm) {
@@ -95,7 +62,7 @@ const Register = () => {
     };
 
     return (
-        <div className="pgr rwrapper">
+        <div className="rwrapper">
             <form onSubmit={handleSubmit}>
                 {/* Sign Up Field */}
                 <h1>Register</h1>

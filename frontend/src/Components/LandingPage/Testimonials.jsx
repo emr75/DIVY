@@ -14,7 +14,7 @@ export const Testimonials = () => {
         {
             id: 2,
             name: "Michael Rodriguez",
-            role: "Art Collector",
+            role: "Real Estate Investor",
             avatar: "MR",
             rating: 5,
             text: "Traditional real estate requires huge capital and lacks liquidity. With DIVY, I get exposure to high-value assets without tying up hundreds of thousands, and I can sell my shares whenever I need to."
@@ -22,7 +22,7 @@ export const Testimonials = () => {
         {
             id: 3,
             name: "Emily Thompson",
-            role: "Tech Professional",
+            role: "Stock Trader",
             avatar: "ET",
             rating: 5,
             text: "The investing functionality is seamless. I can buy and sell shares instantly, and the portfolio analytics help me track my returns. Highly recommend!"
@@ -30,7 +30,7 @@ export const Testimonials = () => {
     ];
 
     return (
-        <div className='wrapper testimonials-wrapper'>
+        <div className='wrapper testimonials-wrapper' id='testimonials'>
             <div className="section-header">
                 <h2 className="section-title">What Our Investors Say</h2>
                 <p className="section-subtitle">

@@ -6,11 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 
 // Nav logic
-const Nav = () => {
+const Nav = ({isLoggedIn, setIsLoggedIn}) => {
 
     const navigate = useNavigate();
-    // set login state
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleLogout = () => {
         setIsLoggedIn(false);
@@ -26,7 +24,7 @@ const Nav = () => {
                 </Link>
                 {/* Navigation Links */}
                 <div className="nav-links">
-                    {/* Home/Dashboard */}
+                    {/* Home/Profile */}
                     {isLoggedIn ? (
                         <Link to="/profile" className="nav-link">
                             Profile
@@ -44,7 +42,7 @@ const Nav = () => {
 
                     {/* Create Listing - only when logged in */}
                     {isLoggedIn && (
-                        <Link to="/create-listing" className="nav-link">
+                        <Link to="/assetcreation" className="nav-link">
                             Create Listing
                         </Link>
                     )}
@@ -55,14 +53,14 @@ const Nav = () => {
                             Groups
                         </Link>
                     )}
-                                    {/* Auth Button */}
+                    {/* Auth Button */}
                     <div className="nav-auth">
                         {isLoggedIn ? (
                             <button onClick={handleLogout} className="nav-btn-logout">
                                 Logout
                             </button>
                         ) : (
-                            <Link to="/login" className="nav-btn-login">
+                            <Link to="/loginform" className="nav-btn-login">
                                 Login
                             </Link>
                         )}
