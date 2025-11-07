@@ -2,9 +2,9 @@ name: Code Review and Lint Check
 
 on:
   push:
-    branches: [ main, develop, liva ]
+    branches: [main, develop, liva, fix_linting]
   pull_request:
-    branches: [ main, develop, liva ]
+    branches: [main, develop, liva]
 
 jobs:
   lint-and-format:
@@ -53,7 +53,6 @@ jobs:
         with:
           python-version: "3.11"
 
-            
       - name: Cache Python packages
         uses: actions/cache@v4
         with:
@@ -63,7 +62,7 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: Install backend dependencies
-       
+
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt flake8 black
