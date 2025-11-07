@@ -11,7 +11,7 @@ import Cookies from "js-cookie";
 />
 
 // Login Form Component
-const LoginForm = () => {
+const LoginForm = ({ onLogin }) => {
     const navigate = useNavigate();
 
     const [responseMessage, setResponseMessage] = useState('');
@@ -32,9 +32,6 @@ const LoginForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Authetication will go here
-        //
-
         try {
             const response = await axios.post('http://localhost:8000/auth/login', form);
             setResponseMessage('Data submitted successfully!');
@@ -46,9 +43,9 @@ const LoginForm = () => {
                     secure: true, // only sent over HTTPS
                     sameSite: 'strict' // prevents CSRF
                 });
-                console.log(response.data['message']);
-                
-                alert(`${response.data['message']}, you exist!`);
+
+                onLogin();
+                navigate("/profile");
             }
 
 
@@ -61,7 +58,7 @@ const LoginForm = () => {
         // navigate("/landingpage"); // redirect to dashboard (temp landingPage) after login
     };
     return (
-        <div className="page right wrapper">
+        <div className="login-wrapper">
             {/* Login Form */}
             <form onSubmit={handleSubmit}>
                 <h1>Login</h1>
@@ -97,7 +94,7 @@ const LoginForm = () => {
                 <button type="submit">Login</button>
                 {/* Register Link */}
                 <div className="register-link">
-                    <Link to="./register">Don't have an account?</Link>
+                    <Link to="../register">Don't have an account?</Link>
                 </div>
             </form>
         </div>

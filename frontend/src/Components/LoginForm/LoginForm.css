@@ -1,4 +1,4 @@
-.wrapper {
+.login-wrapper {
     width: 600px;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .2);
@@ -12,17 +12,30 @@
     align-items: center;
     height: 100vh;
 }
-
-.wrapper h1 {
+button {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+    margin-top: 10px;
+}
+h1 {
     font-size: 36px;
     text-align: center;
 }
 
-.wrapper .lf-input {
+.lf-input {
     position: relative;
     width: 100%;
     height: 50px;
-    margin: 30px 0;
+    margin: 35px 0;
 }
 
 .lf-input input {
@@ -50,7 +63,7 @@
     font-size: 16px;
 }
 
-.wrapper .forgot-pwd {
+.forgot-pwd {
     display: flex;
     justify-content: space-between;
     font-size: 14.5px;
@@ -71,7 +84,7 @@
     text-decoration: underline;
 }
 
-.wrapper button {
+button {
     width: 100%;
     height: 45px;
     background: #fff;
@@ -85,7 +98,7 @@
     font-weight: 700;
 }
 
-.wrapper .register-link {
+.register-link {
     font-size: 14.5px;
     text-align: center;
     margin: 20px 0 15px;
