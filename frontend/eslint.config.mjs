@@ -33,6 +33,7 @@ export default [
       "prettier/prettier": ["error", { endOfLine: "auto" }],
       "linebreak-style": "off", // avoid double enforcement
       "no-unused-vars": ["warn", { args: "after-used", ignoreRestSiblings: true }],
+      "react/prop-types": "warn",
     },
   },
 ];
