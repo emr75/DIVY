@@ -1,11 +1,11 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Nav from './Components/Nav/Nav';
-import Footer from './Components/Footer/Footer';
-import LoginForm from './Components/LoginForm/LoginForm';
-import Register from './Components/Register/Register';
-import Profile from './Components/Profile/Profile';
-import AssetCreation from './Components/AssetCreation/AssetCreation';
-import LandingPage from './Pages/LandingPage';
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Nav from "./Components/Nav/Nav";
+import Footer from "./Components/Footer/Footer";
+import LoginForm from "./Components/LoginForm/LoginForm";
+import Register from "./Components/Register/Register";
+import Profile from "./Components/Profile/Profile";
+import AssetCreation from "./Components/AssetCreation/AssetCreation";
+import LandingPage from "./Pages/LandingPage";
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
@@ -31,15 +31,15 @@ function App() {
   const handleLogin = () => setIsLoggedIn(true);
 
   // Check if loading - laoding message
-  if (loading) return <div div className="loading-screen">Loading…</div>;
+  if (loading) return <div className="loading-screen">Loading…</div>;
 
   return (
     <Router>
-      <Nav isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+      <Nav isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         {/* Public routes */}
         <Route
-        // conditional if logged in vs not
+          // conditional if logged in vs not
           path="/"
           element={isLoggedIn ? <Navigate to="/profile" replace /> : <LandingPage />}
         />
@@ -68,7 +68,7 @@ function App() {
         {/* Catch-all */}
         <Route path="/landingpage" element={<Navigate to="/landingpage" replace />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </Router>
   );
 }
