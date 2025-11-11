@@ -26,4 +26,5 @@ jobs:
 
       - name: Run Django tests
         run: |
+          cd marketproj
           python3 manage.py test
