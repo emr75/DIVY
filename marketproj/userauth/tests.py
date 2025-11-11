@@ -91,4 +91,4 @@ class AuthTests(TestCase):
 
         role = get_role_from_jwt(token)
         self.assertIsNotNone(role)
-        self.assertEqual(role, 0)  
+        self.assertEqual(role, 0)

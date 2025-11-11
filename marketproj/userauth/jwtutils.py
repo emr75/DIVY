@@ -59,14 +59,16 @@ def get_user_from_jwt(token):
         return User.objects.get(id=user_id)
     except (jwt.ExpiredSignatureError, jwt.InvalidTokenError, User.DoesNotExist):
         return None
-    
+
+
 def get_role_from_request(request):
     try:
         token = request.headers.get("Authorization").split(" ")[1]
         return get_role_from_jwt(token)
     except (jwt.ExpiredSignatureError, jwt.InvalidTokenError, User.DoesNotExist):
         return None
-    
+
+
 def get_role_from_jwt(token):
     try:
         payload = jwt.decode(
