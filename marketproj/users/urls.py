@@ -7,4 +7,6 @@ urlpatterns = [
     path("get/<int:id>", views.get_user, name="get_user"),
     path("update/<int:id>", views.update_user, name="update_user"),
     path("delete/<int:id>", views.delete_user, name="delete_user"),
+
+    path("list", views.list_users, name="list_users"),
 ]

@@ -76,3 +76,11 @@ def delete_user(request, id):
 
     user.delete()
     return Response({"message": "User deleted successfully"}, status=status.HTTP_200_OK)
+
+# LIST users
+@api_view(["GET"])
+@jwt_required
+def list_users(request):
+    users = User.objects.all()
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
