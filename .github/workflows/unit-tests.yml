@@ -23,8 +23,22 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install coverage
 
-      - name: Run Django tests
+      - name: Run tests with coverage
         run: |
-          cd marketproj
-          python3 manage.py test
+          coverage run manage.py test
+          coverage report -m
+          coverage xml
+
+      - name: Comment coverage on PR
+        uses: mattallty/comment-on-pr@v1.0.2
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          msg: |
+            **Test Coverage Report**
+            ```
+            $(coverage report)
+            ```
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

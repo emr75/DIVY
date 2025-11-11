@@ -130,7 +130,3 @@ class UserTests(APITestCase):
         # Test DELETE user not found
         response = self.client.delete(self.delete_url(invalid_id), {'id':invalid_id})
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)  # Unauthorized due to missing JWT
-
-    def test_fail(self):
-        """Dummy fail test to verify CI/CD"""
-        self.assertEqual(1, 2)
