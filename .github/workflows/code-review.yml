@@ -2,7 +2,7 @@ name: Code Review and Lint Check
 
 on:
   push:
-    branches: [ main, develop, liva, unittests ]
+    branches: [ main, develop, liva]
   pull_request:
     branches: [ main, develop, liva ]
 
