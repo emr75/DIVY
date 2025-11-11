@@ -8,6 +8,7 @@ class User(models.Model):
     password = models.CharField(max_length=128)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15, unique=True)
+    role = models.IntegerField(default=0)  # 0: regular user, 1: admin
 
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
