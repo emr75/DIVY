@@ -36,6 +36,9 @@ jobs:
           coverage report -m > ../coverage.txt 
           coverage xml -o ../coverage.xml
 
+      - name: Install xml2js
+        run: npm install xml2js
+
       - name: Post coverage summary comment
         if: ${{ github.event_name == 'pull_request' }}
         uses: actions/github-script@v7
@@ -60,20 +63,10 @@ jobs:
             const linesCovered = coverage['lines-covered'];
 
             // Prepare clean Markdown
-            let body = `### 🧪 Django Test Coverage Report\n\n`;
+            let body = `### Django Test Coverage Report\n\n`;
             body += `**Total Line Coverage:** ${lineRate}%\n\n`;
             body += `**Branch Coverage:** ${branchRate}%\n\n`;
             body += `**Lines Covered:** ${linesCovered} / ${totalLines}\n\n`;
-
-            // Optional: Per-file summary
-            body += `| File | Coverage |\n|------|-----------|\n`;
-            for (const pkg of result.coverage.packages[0].package) {
-              for (const cls of pkg.classes[0].class) {
-                const file = cls.$.filename;
-                const rate = (parseFloat(cls.$['line-rate']) * 100).toFixed(2);
-                body += `| ${file} | ${rate}% |\n`;
-              }
-            }
 
             await github.rest.issues.createComment({
               issue_number: context.payload.pull_request.number,
