@@ -3,8 +3,6 @@ name: Django Unit Tests
 on:
   pull_request:
     branches: ["develop", "main"]
-  push:
-    branches: ["unittests"]   # testing
 
 jobs:
   run-tests:
