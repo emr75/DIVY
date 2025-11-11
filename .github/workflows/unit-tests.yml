@@ -27,7 +27,7 @@ jobs:
         run: |
           cd marketproj
           coverage run manage.py test
-          coverage report -m
+          coverage report -m > ../coverage.txt 
           coverage xml -o ../coverage.xml
 
       - name: Comment coverage on PR
