@@ -28,7 +28,7 @@ jobs:
           cd marketproj
           coverage run manage.py test
           coverage report -m
-          coverage xml
+          coverage xml -o ../coverage.xml
 
       - name: Comment coverage on PR
         if: ${{ github.event_name == 'pull_request' }}
