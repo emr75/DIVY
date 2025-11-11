@@ -27,7 +27,7 @@ jobs:
         run: |
           cd marketproj
           coverage run manage.py test
-          coverage report -m > coverage.txt
+          coverage report -m
           coverage xml
 
       - name: Comment coverage on PR
@@ -37,7 +37,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
-            const coverage = fs.readFileSync('coverage.txt', 'utf8');
+            const coverage = fs.readFileSync('coverage.xml', 'utf8');
             const body = `**Django Test Coverage Report**\n\n\`\`\`\n${coverage}\n\`\`\``;
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
