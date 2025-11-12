@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class User(models.Model):
     id = models.AutoField(primary_key=True)
@@ -7,16 +8,17 @@ class User(models.Model):
     password = models.CharField(max_length=128)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15, unique=True)
+    role = models.IntegerField(default=0)  # 0: regular user, 1: admin
 
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.username
-    
+
     def get_id(self):
         return self.id
-    
+
     def get_username(self):
         return self.username
 
@@ -27,5 +29,5 @@ class User(models.Model):
             "email": self.email,
             "phone": self.phone,
             "created_at": self.created_at,
-            "modified_at": self.modified_at
+            "modified_at": self.modified_at,
         }

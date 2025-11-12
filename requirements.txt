@@ -3,3 +3,6 @@ djangorestframework
 django-cors-headers
 markdown      
 django-filter 
+pyjwt
+flake8
+black

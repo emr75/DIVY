@@ -19,6 +19,7 @@ $ python -m pip install -r requirements.txt
 
 $ python -m django --version
 ```
+
 2. Once Django is installed, start the development server using these commands.
 
 ```powershell
@@ -40,12 +41,36 @@ $ npm install
 ```
 
 5. Once JavaScript package installation is complete, start the frontend server using this command
+
 ```powershell
 $ npm run start
 ```
 
 6. The React development server will start running at [http://localhost:3000](http://localhost:3000).
 
+## For Developers
+
+Coding standards are enforced for both frontend JavaScript (ESLint + Prettier) and backend Python code (flake8 + black).
+
+1. To format all frontend files, run the following code from the root directory
+
+```powershell
+$ cd frontend
+
+$ npx prettier --write .
+
+$ npx eslint . --fix
+```
+
+2. To format all backend files, run the following code from the root directory
+
+```powershell
+$ cd marketproj
+
+$ black .
+```
+
+Eventually, formatting will be automatic upon commit and/or push.
 
 ### Members
 
