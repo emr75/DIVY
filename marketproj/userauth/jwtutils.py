@@ -12,6 +12,7 @@ def generate_jwt(user):
     payload = {
         "user_id": user.id,
         "username": user.username,
+        "role": user.role,
         "exp": datetime.utcnow() + timedelta(seconds=settings.JWT_EXP_DELTA_SECONDS),
     }
     token = jwt.encode(payload, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
@@ -44,11 +45,7 @@ def jwt_required(func):
 def get_user_from_request(request):
     try:
         token = request.headers.get("Authorization").split(" ")[1]
-        payload = jwt.decode(
-            token, settings.JWT_SECRET, algorithms=[settings.JWT_ALGORITHM]
-        )
-        user_id = payload.get("user_id")
-        return User.objects.get(id=user_id)
+        return get_user_from_jwt(token)
     except (jwt.ExpiredSignatureError, jwt.InvalidTokenError, User.DoesNotExist):
         return None
 
@@ -60,5 +57,24 @@ def get_user_from_jwt(token):
         )
         user_id = payload.get("user_id")
         return User.objects.get(id=user_id)
+    except (jwt.ExpiredSignatureError, jwt.InvalidTokenError, User.DoesNotExist):
+        return None
+
+
+def get_role_from_request(request):
+    try:
+        token = request.headers.get("Authorization").split(" ")[1]
+        return get_role_from_jwt(token)
+    except (jwt.ExpiredSignatureError, jwt.InvalidTokenError, User.DoesNotExist):
+        return None
+
+
+def get_role_from_jwt(token):
+    try:
+        payload = jwt.decode(
+            token, settings.JWT_SECRET, algorithms=[settings.JWT_ALGORITHM]
+        )
+        role = payload.get("role")
+        return role
     except (jwt.ExpiredSignatureError, jwt.InvalidTokenError, User.DoesNotExist):
         return None

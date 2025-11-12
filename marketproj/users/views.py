@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.pagination import PageNumberPagination
 
 from userauth.jwtutils import jwt_required, get_user_from_request
 
@@ -76,3 +77,14 @@ def delete_user(request, id):
 
     user.delete()
     return Response({"message": "User deleted successfully"}, status=status.HTTP_200_OK)
+
+
+# LIST users
+@api_view(["GET"])
+@jwt_required
+def list_users(request):
+    users = User.objects.all()
+    paginator = PageNumberPagination()
+    result_page = paginator.paginate_queryset(users, request)
+    serializer = UserSerializer(result_page, many=True)
+    return paginator.get_paginated_response(serializer.data)
