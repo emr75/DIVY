@@ -32,7 +32,7 @@ const LoginForm = ({ onLogin }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8000/auth/login", form);
+      const response = await axios.post("https://divy-dd00.onrender.com/auth/login", form);
       setResponseMessage("Data submitted successfully!");
       // console.log(response.data); // Log the response from Django
 

@@ -6,6 +6,7 @@ import Testimonials from "../Components/LandingPage/Testimonials";
 import Cta from "../Components/LandingPage/Cta";
 import Faq from "../Components/LandingPage/Faq";
 import "./LandingPage.css";
+import "../Components/LandingPage/HeroSection.css";
 
 // Login Form Component
 const LandingPage = () => {

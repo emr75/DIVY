@@ -57,7 +57,7 @@ const AssetCreation = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8000/users/create", form);
+      const response = await axios.post("https://divy-dd00.onrender.com/users/create", form);
       setResponseMessage("Data submitted successfully!");
       // console.log(response.data); // Log the response from Django
       if (response.status === 201) {

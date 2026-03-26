@@ -98,7 +98,7 @@ export const Profile = () => {
     if (jwt_token) {
       (async () => {
         console.log("Token exists");
-        const response = await axios.post("http://localhost:8000/auth/user_info", {
+        const response = await axios.post("https://divy-dd00.onrender.com/auth/user_info", {
           jwt_token: jwt_token,
         });
 
