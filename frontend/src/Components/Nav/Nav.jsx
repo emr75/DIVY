@@ -83,7 +83,7 @@ const Nav = ({ isLoggedIn, setIsLoggedIn }) => {
 
           {/* Groups - only when logged in */}
           {isLoggedIn && (
-            <Link to="/groups" className="nav-link">
+            <Link to="/grouplist" className="nav-link">
               Groups
             </Link>
           )}
