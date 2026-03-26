@@ -15,7 +15,7 @@ const GroupList = () => {
     address: "200 Park Avenue, New York, NY 10017",
     total_price: 1200000,
     created_at: "2025-10-10",
-    property_image: "./images/temp-img.jpg",
+    property_image: "./images/apartment-placeholder.jpg",
     status: "Open",
   };
 
@@ -23,17 +23,16 @@ const GroupList = () => {
   const myGroups = [
     {
       id: 1,
-      assetName: "Downtown Loft",
-      groupName: "City Living Group",
-      members: 12,
+      assetName: "Californian Home",
+      groupName: "Easy Living",
       myShares: 3,
       status: "Active",
       totalValue: 750000,
       sharesAvailable: 20,
       pricePerShare: 15000,
-      imageUrl: "./images/loft-temp.jpg",
+      imageUrl: "./images/house-placeholder.jpg",
       postedAt: "2025-11-01",
-      address: "45 Market Street, Brooklyn, NY",
+      address: "45 Market Street, Rodeo Drive, LA",
     },
     {
       id: 2,
@@ -45,7 +44,7 @@ const GroupList = () => {
       totalValue: 600000,
       sharesAvailable: 10,
       pricePerShare: 12000,
-      imageUrl: "./images/condo-temp.jpg",
+      imageUrl: "./images/apartment-placeholder.jpg",
       postedAt: "2025-10-20",
       address: "900 5th Avenue, New York, NY",
     },
