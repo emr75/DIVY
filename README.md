@@ -30,7 +30,7 @@ $ python manage.py migrate
 $ python manage.py runserver
 ```
 
-3. The Django development server will start running at [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
+3. The Django development server will start running at [https://divy-dd00.onrender.com].
 
 4. If you have installed Node.js, run the following commands from the root project directory to install all required packages for the frontend React.js server.
 
