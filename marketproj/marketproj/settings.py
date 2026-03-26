@@ -11,25 +11,25 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-s+bsf^h8!pf9o12518jbqy9*k!wbvx_9d^qxdic)rmpfn*$b*&"
+# Security / environment config
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-dev-key")
 
 JWT_SECRET = SECRET_KEY
 JWT_ALGORITHM = "HS256"
 JWT_EXP_DELTA_SECONDS = 3600  # token valid for 1 hour
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = []
+raw_hosts = os.environ.get("ALLOWED_HOSTS", "")
+ALLOWED_HOSTS = ["*"] if raw_hosts == "*" else [h.strip() for h in raw_hosts.split(",") if h.strip()]
+
+if DEBUG:
+    ALLOWED_HOSTS += ["localhost", "127.0.0.1"]
 
 
 # Application definition
