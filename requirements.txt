@@ -1,0 +1,9 @@
+django
+djangorestframework
+django-cors-headers
+markdown      
+django-filter 
+gunicorn
+pyjwt
+flake8
+black
