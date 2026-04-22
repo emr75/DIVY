@@ -74,6 +74,10 @@ const Nav = ({ isLoggedIn, setIsLoggedIn }) => {
             Listings
           </Link>
 
+          {/* Listings - always visible */}
+          <Link to="/profile" className="nav-link">
+            Explore
+          </Link>
           {/* Create Listing - only when logged in */}
           {isLoggedIn && (
             <Link to="/assetcreation" className="nav-link">

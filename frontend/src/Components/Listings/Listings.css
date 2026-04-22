@@ -1,0 +1,582 @@
+/* ============================================================
+   DIVY — Asset Listings Page
+   Matches DIVY design system: IBM Plex fonts, blue palette
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,600;1,600&display=swap");
+
+/* ── Page layout ───────────────────────────────────────────── */
+.listings-page {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  align-items: start;
+  background: #f4f7fa;
+  font-family: "IBM Plex Sans", sans-serif;
+  color: #0d1f3c;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SIDEBAR
+══════════════════════════════════════════════════════════════ */
+.sidebar {
+  background: #fff;
+  border-right: 1px solid rgba(43, 120, 162, 0.1);
+  padding: 32px 24px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.sidebar-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(43, 120, 162);
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(43, 120, 162, 0.1);
+}
+
+/* ── Filter group ── */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-group-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8aacbf;
+}
+
+/* ── Status pills ── */
+.status-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.status-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(43, 120, 162, 0.13);
+  background: transparent;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #5a7a96;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  text-align: left;
+}
+
+.status-pill:hover {
+  border-color: rgba(43, 120, 162, 0.3);
+  color: #0d1f3c;
+}
+
+.status-pill.active {
+  background: linear-gradient(135deg, rgb(117, 152, 180) 0%, rgb(43, 120, 162) 100%);
+  border-color: transparent;
+  color: #fff;
+}
+
+.status-pill .count {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 100px;
+  min-width: 22px;
+  text-align: center;
+  background: rgba(43, 120, 162, 0.1);
+  color: rgb(43, 120, 162);
+}
+
+.status-pill.active .count {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+/* ── Select ── */
+.filter-select {
+  width: 100%;
+  height: 38px;
+  background: #fff;
+  border: 1px solid rgba(43, 120, 162, 0.2);
+  border-radius: 4px;
+  padding: 0 32px 0 12px;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 13px;
+  color: #0d1f3c;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238aacbf' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+.filter-select:focus {
+  border-color: rgba(43, 120, 162, 0.45);
+}
+
+/* ── Price range ── */
+.price-range {
+  display: flex;
+  gap: 8px;
+}
+
+.price-input {
+  flex: 1;
+  height: 38px;
+  background: #fff;
+  border: 1px solid rgba(43, 120, 162, 0.2);
+  border-radius: 4px;
+  padding: 0 12px;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 13px;
+  color: #0d1f3c;
+  outline: none;
+  transition: border-color 0.18s ease;
+}
+
+.price-input::placeholder {
+  color: #8aacbf;
+}
+
+.price-input:focus {
+  border-color: rgba(43, 120, 162, 0.45);
+}
+
+/* ── Bedrooms ── */
+.bed-options {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.bed-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(43, 120, 162, 0.2);
+  background: transparent;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #5a7a96;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.bed-btn:hover {
+  border-color: rgba(43, 120, 162, 0.4);
+  color: #0d1f3c;
+}
+
+.bed-btn.active {
+  background: linear-gradient(135deg, rgb(117, 152, 180) 0%, rgb(43, 120, 162) 100%);
+  border-color: transparent;
+  color: #fff;
+}
+
+/* ── Apply button ── */
+.filter-apply {
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(135deg, rgb(117, 152, 180) 0%, rgb(43, 120, 162) 100%);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.18s ease;
+  margin-top: 4px;
+}
+
+.filter-apply:hover {
+  opacity: 0.88;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MAIN CONTENT
+══════════════════════════════════════════════════════════════ */
+.listings-main {
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ── Header ── */
+.listings-hdr {
+  text-align: center;
+}
+
+.listings-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(43, 120, 162);
+  margin-bottom: 12px;
+}
+
+.listings-eyebrow-line {
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: rgb(117, 152, 180);
+  opacity: 0.5;
+}
+
+.listings-title {
+  font-family: "IBM Plex Serif", serif;
+  font-weight: 600;
+  font-style: italic;
+  font-size: clamp(26px, 3vw, 40px);
+  line-height: 1.08;
+  letter-spacing: -0.5px;
+  color: #0d1f3c;
+  margin-bottom: 8px;
+}
+
+.listings-sub {
+  font-size: 15px;
+  color: #5a7a96;
+}
+
+/* ── Results bar ── */
+.results-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(43, 120, 162, 0.1);
+}
+
+.results-count {
+  font-size: 14px;
+  color: #5a7a96;
+  font-weight: 500;
+}
+
+.results-count strong {
+  color: #0d1f3c;
+}
+
+.sort-select {
+  height: 34px;
+  background: #fff;
+  border: 1px solid rgba(43, 120, 162, 0.2);
+  border-radius: 4px;
+  padding: 0 28px 0 10px;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 13px;
+  color: #0d1f3c;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238aacbf' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CARDS GRID
+══════════════════════════════════════════════════════════════ */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+}
+
+/* ── Card ── */
+.asset-card {
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid rgba(43, 120, 162, 0.12);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  /* Load-in animation — stagger applied inline via style prop */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: cardFadeIn 0.5s ease forwards;
+}
+
+.asset-card:hover {
+  border-color: rgba(43, 120, 162, 0.32);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(43, 120, 162, 0.1);
+}
+
+@keyframes cardFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Card image slot ───────────────────────────────────────────
+ * Drop an <img> with className="card-photo" inside .card-img.
+ * The blue gradient shows as a placeholder until the image loads.
+ */
+.card-img {
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(160deg, #dce8f2 0%, #c4d8e8 100%);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.card-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* ── Status badge ── */
+.card-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.card-badge.active {
+  background: #2a9d60;
+  color: #fff;
+}
+.card-badge.pending {
+  background: #e07b30;
+  color: #fff;
+}
+.card-badge.sold-out {
+  background: #8aacbf;
+  color: #fff;
+}
+
+/* ── Card body ── */
+.card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.card-type-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(43, 120, 162, 0.07);
+  border: 1px solid rgba(43, 120, 162, 0.18);
+  color: rgb(43, 120, 162);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 3px;
+  width: fit-content;
+}
+
+.card-name {
+  font-family: "IBM Plex Serif", serif;
+  font-weight: 600;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+  color: #0d1f3c;
+}
+
+.card-address {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #8aacbf;
+  font-weight: 500;
+}
+
+.card-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5a7a96;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Stats grid ── */
+.card-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 0;
+  border-top: 1px solid rgba(43, 120, 162, 0.08);
+  border-bottom: 1px solid rgba(43, 120, 162, 0.08);
+  padding: 12px 0;
+}
+
+.card-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.card-stat:nth-child(odd) {
+  border-right: 1px solid rgba(43, 120, 162, 0.08);
+  padding-right: 12px;
+}
+
+.card-stat:nth-child(even) {
+  padding-left: 12px;
+}
+
+.card-stat-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8aacbf;
+}
+
+.card-stat-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0d1f3c;
+  letter-spacing: -0.2px;
+}
+
+.card-stat-value.positive {
+  color: #2a9d60;
+}
+
+/* ── Progress bar ── */
+.card-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.card-progress-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(43, 120, 162, 0.1);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.card-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, rgb(117, 152, 180), rgb(43, 120, 162));
+  border-radius: 100px;
+  transition: width 0.8s ease;
+}
+
+.card-progress-label {
+  font-size: 11px;
+  color: #8aacbf;
+  font-weight: 500;
+}
+
+/* ── Card footer CTA ── */
+.card-footer {
+  padding: 0 20px 20px;
+  margin-top: auto;
+}
+
+.card-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 80%;
+  height: 40px;
+  background: linear-gradient(135deg, rgb(117, 152, 180) 0%, rgb(43, 120, 162) 100%);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.18s ease;
+}
+
+.card-cta:hover {
+  opacity: 0.88;
+}
+
+.card-cta.sold-out {
+  background: none;
+  background-color: #e8eff5;
+  color: #8aacbf;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .listings-page {
+    grid-template-columns: 1fr;
+  }
+  .card-cta {
+    width: 100%;
+  }
+
+  .sidebar {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(43, 120, 162, 0.1);
+    padding: 24px 20px;
+  }
+
+  .listings-main {
+    padding: 28px 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

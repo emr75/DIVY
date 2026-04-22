@@ -1,0 +1,138 @@
+# NYU_SWE Group 5 - Fractional Ownership Marketplace
+
+## Description
+
+The Fractional Ownership Marketplace enables groups of individuals to jointly invest in
+expensive assets they otherwise could not afford alone. Sellers list assets (e.g., a $100K
+property), and buyers can pool money to collectively purchase them. Each buyer
+becomes a fractional owner, with shares proportional to their contribution. The platform
+manages group formation, secure payments through escrow, contract generation, and
+distribution of profits from rent or resale. Additionally, a built-in secondary marketplace
+provides liquidity, allowing users to resell their shares to others.
+
+## Get Started
+
+1. If you have installed Python already, run the following commands from the root /NYU_SWE project directory to install all required packages and to verify that Django was installed correctly.
+
+```powershell
+$ cd marketproj
+
+$ python -m pip install -r requirements.txt
+
+$ python -m django --version
+```
+
+2. Once Django is installed, start the development server using these commands in the /NYU_SWE/marketproj directory.
+
+```powershell
+$ python manage.py migrate
+
+$ python manage.py runserver
+```
+
+<<<<<<< HEAD
+3. The Django development server will start running at [https://divy-dd00.onrender.com].
+=======
+3. The Django development server will start running at [http://localhost:8000](http://localhost:8000).
+>>>>>>> c2aea971792c8eb6a15bb64ab7d10eef88602a61
+
+4. If you have installed Node.js, run the following commands from the root /NYU_SWE project directory to install all required packages for the frontend React.js server.
+
+```powershell
+$ cd frontend
+
+$ npm install
+```
+
+5. Once JavaScript package installation is complete, start the frontend server using this command in the /NYU_SWE/frontend directory.
+
+```powershell
+$ npm run start
+```
+
+6. The React development server will start running at [http://localhost:3000](http://localhost:3000).
+
+## For Developers
+
+### Creating an admin
+
+To create an admin account for approving asset listing from users, run the folloring command in the /NYU_SWE/marketproj directory. A new admin user will be created with the username **admin** and password **admin**.
+
+```powershell
+$ python manage.py create_admin
+```
+
+### Formatting Standards
+
+Coding standards are enforced for both frontend JavaScript (ESLint + Prettier) and backend Python code (flake8 + black).
+
+1. To format all frontend files, run the following code from the root /NYU_SWE directory.
+
+```powershell
+$ cd frontend
+
+$ npx prettier --write .
+
+$ npx eslint . --fix
+```
+
+2. To format all backend files, run the following code from the root /NYU_SWE directory.
+
+```powershell
+$ cd marketproj
+
+$ black .
+```
+
+Eventually, formatting will be automatic upon commit and/or push.
+
+### Full Deployment Update Workflow with Docker
+
+**_Ensure that Docker is installed locally before attempting to modify a deployment!!!_**
+
+If you want to run Docker containers locally, use the following command in the root /NYU_SWE directory.
+
+```powershell
+$ docker-compose up -d
+```
+
+**_CAREFUL_**: Whenever you update code of the cloud deployment:
+
+1. Rebuild locally
+
+```powershell
+$ cd frontend
+
+$ docker build -t likhith2366/divy:frontend .
+```
+
+```powershell
+$ cd marketproj
+
+$ docker build -t likhith2366/divy:backend .
+```
+
+2. Push to Docker Hub
+
+```powershell
+$ docker push likhith2366/divy:frontend
+
+$ docker push likhith2366/divy:backend
+```
+
+3. SSH into EC2 & update
+
+```powershell
+$ sude docker-compose pull
+$ sude docker-compose up -d
+```
+
+The deployment will be instantly refreshed.
+
+### Members
+
+- Likhith Vardhan Goruputi
+- Vincent Hepola
+- Srikar Konakanchi
+- Elle Robertson
+- Gaurav Rane

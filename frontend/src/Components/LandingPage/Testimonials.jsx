@@ -1,65 +1,97 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../../Pages/LandingPage.css";
 
-export const Testimonials = () => {
-  const testimonials = [
-    {
-      id: 1,
-      name: "Sarah Chen",
-      role: "Real Estate Investor",
-      avatar: "SC",
-      rating: 5,
-      text: "I've invested in both stocks and real estate for years, but DIVY offers something unique. I can now diversify into tangible luxury assets with the same ease as buying stocks, but with much better returns.",
-    },
-    {
-      id: 2,
-      name: "Michael Rodriguez",
-      role: "Real Estate Investor",
-      avatar: "MR",
-      rating: 5,
-      text: "Traditional real estate requires huge capital and lacks liquidity. With DIVY, I get exposure to high-value assets without tying up hundreds of thousands, and I can sell my shares whenever I need to.",
-    },
-    {
-      id: 3,
-      name: "Emily Thompson",
-      role: "Stock Trader",
-      avatar: "ET",
-      rating: 5,
-      text: "The investing functionality is seamless. I can buy and sell shares instantly, and the portfolio analytics help me track my returns. Highly recommend!",
-    },
-  ];
+const Star = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path
+      d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10l-3.6 1.9.7-4L2.2 5.2l4-.6z"
+      fill="rgb(43,120,162)"
+      stroke="rgb(43,120,162)"
+      strokeWidth="0.5"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
+const Stars = () => (
+  <div className="t-stars">
+    <Star /><Star /><Star /><Star /><Star />
+  </div>
+);
+
+const testimonials = [
+  {
+    id: "sarah",
+    quote:
+      "I've invested in both stocks and real estate for years, but DIVY offers something unique. I can now diversify into tangible luxury assets with the same ease as buying stocks, but with much better returns.",
+    name: "Sarah Chen",
+    role: "Real Estate Investor",
+    photo: "/images/stock-image-1.png",
+  },
+  {
+    id: "michael",
+    quote:
+      "Traditional real estate requires huge capital and lacks liquidity. With DIVY, I get exposure to high-value assets without tying up hundreds of thousands, and I can sell my shares whenever I need to.",
+    name: "Michael Rodriguez",
+    role: "Real Estate Investor",
+    photo: "/images/stock-photo-3.jpg",
+  },
+  {
+    id: "emily",
+    quote:
+      "The investing functionality is seamless. I can buy and sell shares instantly, and the portfolio analytics help me track my returns. Highly recommend!",
+    name: "Emily Thompson",
+    role: "Stock Trader",
+    photo: "/images/stock-photo-2.jpg",
+  },
+];
+
+export default function Testimonials() {
   return (
-    <div className="wrapper testimonials-wrapper" id="testimonials">
-      <div className="section-header">
-        <h2 className="section-title">What Our Investors Say</h2>
-        <p className="section-subtitle">
-          Join thousands of satisfied investors building wealth through fractional ownership
-        </p>
-      </div>
-      <div className="testimonials-grid">
-        {testimonials.map((testimonial) => (
-          <div key={testimonial.id} className="testimonial-card">
-            <div className="testimonial-rating">
-              {[...Array(testimonial.rating)].map((_, i) => (
-                <svg key={i} width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M10 1L12.5 6.5L18.5 7.5L14.25 11.5L15.25 17.5L10 14.5L4.75 17.5L5.75 11.5L1.5 7.5L7.5 6.5L10 1Z" />
-                </svg>
-              ))}
-            </div>
-            <p className="testimonial-text">"{testimonial.text}"</p>
-            <div className="testimonial-author">
-              <div className="testimonial-avatar">{testimonial.avatar}</div>
-              <div className="testimonial-info">
-                <div className="testimonial-name">{testimonial.name}</div>
-                <div className="testimonial-role">{testimonial.role}</div>
+    <section className="testimonials">
+      <div className="testimonials-inner">
+
+        {/* Header */}
+        <div className="testimonials-hdr">
+          <div className="testimonials-eyebrow">
+            <span className="testimonials-eyebrow-line" />
+            Investor Stories
+            <span className="testimonials-eyebrow-line" />
+          </div>
+          <h2 className="testimonials-title">What Our Investors Say</h2>
+          <p className="testimonials-sub">
+            Join thousands of satisfied investors building wealth through fractional ownership
+          </p>
+        </div>
+
+        {/* Cards */}
+        <div className="testimonials-grid">
+          {testimonials.map((t) => (
+            <div key={t.id} className="t-card">
+              <Stars />
+
+              <p className="t-quote">"{t.quote}"</p>
+
+              <div className="t-divider" />
+
+              <div className="t-author">
+                <div className="t-avatar">
+                  {t.photo && (
+                    <img src={t.photo} alt={t.name} />
+                  )}
+                </div>
+
+                <div className="t-author-info">
+                  <span className="t-name">{t.name}</span>
+                  <span className="t-role">{t.role}</span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+          ))}
+        </div>
 
-export default Testimonials;
+      </div>
+    </section>
+  );
+}

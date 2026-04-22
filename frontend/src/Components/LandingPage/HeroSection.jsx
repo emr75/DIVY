@@ -407,7 +407,7 @@ export const HeroSection = () => {
               />
             </svg>
           </Link>
-          <Link to="/explore" className="btn-secondary">
+          <Link to="/listings" className="btn-secondary">
             Explore Assets
           </Link>
         </div>

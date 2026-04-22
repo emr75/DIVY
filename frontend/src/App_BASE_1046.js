@@ -4,8 +4,6 @@ import Footer from "./Components/Footer/Footer";
 import LoginForm from "./Components/LoginForm/LoginForm";
 import Register from "./Components/Register/Register";
 import Profile from "./Components/Profile/Profile";
-import GroupList from "./Components/GroupList/GroupList";
-import Listings from "./Components/Listings/Listings";
 import AssetCreation from "./Components/AssetCreation/AssetCreation";
 import LandingPage from "./Pages/LandingPage";
 import React, { useState, useEffect } from "react";
@@ -47,23 +45,22 @@ function App() {
         />
         <Route path="/loginform" element={<LoginForm onLogin={handleLogin} />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/listings" element={<Listings />} />
         <Route path="/landingpage" element={<LandingPage />} />
-        <Route path="/profile" element={<Profile />} /> 
+
         {/* Protected routes */}
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/assetcreation"
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
               <AssetCreation />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/grouplist"
-          element={
-            <ProtectedRoute isLoggedIn={isLoggedIn}>
-              <GroupList />
             </ProtectedRoute>
           }
         />
