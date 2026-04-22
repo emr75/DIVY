@@ -365,7 +365,6 @@
 .card-badge {
   position: absolute;
   top: 12px;
-  right: 12px;
   padding: 4px 10px;
   border-radius: 3px;
   font-size: 10px;
@@ -524,7 +523,6 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  width: 80%;
   height: 40px;
   background: linear-gradient(135deg, rgb(117, 152, 180) 0%, rgb(43, 120, 162) 100%);
   color: #fff;

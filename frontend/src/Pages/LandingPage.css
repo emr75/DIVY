@@ -339,7 +339,7 @@
 }
 
 /* ── Asset card ────────────────────────────────────────────── */
-.asset-card {
+.featured-card {
   background: #fff;
   border-radius: 6px;
   overflow: hidden;
@@ -563,7 +563,7 @@
 
 /* ── Responsive ────────────────────────────────────────────── */
 @media (max-width: 800px) {
-  .asset-card {
+  .featured-card {
     grid-template-columns: 1fr;
   }
 

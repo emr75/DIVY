@@ -21,7 +21,7 @@ export default function FeaturedOpportunity() {
         </div>
 
         {/* ── Asset card ── */}
-        <div className="asset-card">
+        <div className="featured-card">
 
           {/* ── IMAGE PANEL ─────────────────────────────────────────*/}
           <div className="asset-card-img">
